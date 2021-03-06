@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.coinpi.cn.financialAPI.database.entity.User;
 import com.coinpi.cn.financialAPI.database.repository.UserRepository;
+import com.coinpi.cn.financialAPI.model.StockPredictionModel;
 
 import lombok.Data;
 
@@ -38,4 +39,7 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException("User with email " + username + "  not found!");
 		return user;
 	}
+	
+	
+	
 }
