@@ -38,4 +38,8 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException("User with email " + username + "  not found!");
 		return user;
 	}
+
+	public int getUserRemainingCalls(int id) {
+		return userRepo.getRemainingCallsById(id);
+	}
 }
