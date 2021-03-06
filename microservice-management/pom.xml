@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.startup.cn</groupId>
-	<artifactId>financialAPI</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>financialAPI</name>
-	<description>Demo project for Spring Boot</description>
+	<artifactId>microservice-management</artifactId>
+	<version>0.0.1</version>
+	<name>microservice-management</name>
+	<description>microservice-management</description>
 	<properties>
 		<java.version>15</java.version>
 	</properties>
