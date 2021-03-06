@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.coinpi.cn.financialAPI.model.CreditCardModel;
 import com.coinpi.cn.financialAPI.model.ExampleModel;
 import com.coinpi.cn.financialAPI.service.UserService;
 
@@ -21,27 +22,9 @@ public class UserController {
 	private UserService service;
 
 	
-	@PostMapping("/confirmToken")
-	public ResponseEntity<?> confirmToken(@RequestBody ExampleModel rtt) {
-		return ResponseEntity.ok(rtt);
-	}
-	
-	
-	@GetMapping("/service")
-	public ResponseEntity<String> getUsingService() {
-		return ResponseEntity.ok(service.example());
-	}
-	
-	@Secured({ "ROLE_ADMIN" })
-	@GetMapping("/token/{token}")
-	public ResponseEntity<ExampleModel> getClientByToken(@PathVariable String token) {
-		return ResponseEntity.ok(new ExampleModel(token));
-	}
-	
-	
+	@PostMapping("/buy")
 	@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
-	@GetMapping("/id/{id}")
-	public ResponseEntity<String> getClientById(@PathVariable long id) {
-		return ResponseEntity.ok("Received: "+id);
+	public ResponseEntity<?> confirmToken(@RequestBody CreditCardModel rtt) {
+		return ResponseEntity.ok(rtt);
 	}
 }
