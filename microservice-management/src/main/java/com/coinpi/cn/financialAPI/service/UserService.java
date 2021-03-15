@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.coinpi.cn.financialAPI.database.entity.User;
 import com.coinpi.cn.financialAPI.database.repository.UserRepository;
+import com.coinpi.cn.financialAPI.model.UserInfoModel;
 
 import lombok.Data;
 
@@ -22,7 +23,7 @@ import lombok.Data;
 @Data
 @Service(value = "userService")
 public class UserService implements UserDetailsService {
-	
+
 	@Autowired
 	private UserRepository userRepo;
 
@@ -41,15 +42,27 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 
-	public int getUserRemainingCalls(int id) {
-		return userRepo.getRemainingCallsById(id);
+	public long getUserRemainingCalls(long id) {
+		return userRepo.getOne(id).getCalls();
 	}
-	
+
 	/**
 	 * 
 	 * @return a list of all users
 	 */
 	public List<User> getAll() {
 		return userRepo.findAll();
+	}
+
+	public User update(long id, UserInfoModel info) {
+		User u = userRepo.getOne(id);
+		u.update(info);
+		return userRepo.save(u);
+	}
+
+	public void addCalls(long id, double calls) {
+		User u = userRepo.getOne(id);
+		u.setCalls(u.getCalls()+(long)calls);
+		userRepo.save(u);
 	}
 }

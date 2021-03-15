@@ -24,6 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.coinpi.cn.financialAPI.model.RegistModel;
+import com.coinpi.cn.financialAPI.model.UserInfoModel;
 import com.coinpi.cn.financialAPI.security.SecurityConfig;
 
 import lombok.Data;
@@ -138,5 +139,13 @@ public class User implements UserDetails{
 	 */
 	public void setPassword(String password) {
 		this.password = SecurityConfig.getEncoder().encode(password);
+	}
+
+
+
+	public void update(UserInfoModel info) {
+		if(info.getEmail() != null && !info.getEmail().isBlank()) this.email=info.getEmail();
+		if(info.getFirstName() != null && !info.getFirstName().isBlank()) this.email=info.getFirstName();
+		if(info.getLastName() != null && !info.getLastName().isBlank()) this.email=info.getLastName();
 	}
 }

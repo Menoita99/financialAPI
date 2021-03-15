@@ -20,7 +20,7 @@ public class RegistController {
 	private UserRepository userRepo;
 
 
-	@PostMapping()
+	@PostMapping
 	public ResponseEntity<String> confirmToken(@RequestBody RegistModel registData) {
 		try {
 			User user = userRepo.save(new User(registData));
