@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.coinpi.cn.financialAPI.database.entity.User;
 import com.coinpi.cn.financialAPI.model.CreditCardModel;
 import com.coinpi.cn.financialAPI.model.UserInfoModel;
+import com.coinpi.cn.financialAPI.security.jwt.JwtUtil;
 import com.coinpi.cn.financialAPI.service.UserService;
 
 @RestController
@@ -28,21 +29,22 @@ public class UserController {
 	private UserService service;
 
 	
-	@PostMapping("/{id}/buy")
+	@PostMapping("/buy")
 	@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
-	public ResponseEntity<?> confirmToken(@PathVariable long id, @RequestBody CreditCardModel rtt) {
-		service.addCalls(id, rtt.getAmount()*0.01);
+	public ResponseEntity<?> confirmToken( @RequestBody CreditCardModel rtt) {
+		User user = JwtUtil.getUser();
+		service.addCalls(user.getId(), rtt.getAmount()*0.01);
 		return ResponseEntity.ok(rtt);
 	}
 	
 	
 	
 	
-	@Secured({ "ROLE_CLIENT" })
-	@GetMapping("/{id}/remainingCalls")
-	public ResponseEntity<?> getRemainingCalls(@PathVariable long id) {
+	@GetMapping("/remainingCalls")
+	public ResponseEntity<?> getRemainingCalls() {
+		User user = JwtUtil.getUser();
 		try{
-			return ResponseEntity.ok(service.getUserRemainingCalls(id));
+			return ResponseEntity.ok(service.getUserRemainingCalls(user.getId()));
 		}catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}

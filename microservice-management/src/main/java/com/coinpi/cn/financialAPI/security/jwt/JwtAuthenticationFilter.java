@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private static final String AUTH_URL = "/cloud/api/login";
+    private static final String AUTH_URL = "/api/login";
 
     private final AuthenticationManager authenticationManager;
 
