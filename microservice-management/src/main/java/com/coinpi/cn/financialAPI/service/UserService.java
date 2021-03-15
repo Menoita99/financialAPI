@@ -72,4 +72,8 @@ public class UserService implements UserDetailsService {
 		userRepo.save(u);
 		return u.getCalls();
 	}
+
+	public User findById(long id) {
+		return userRepo.getOne(id);
+	}
 }

@@ -54,7 +54,6 @@ public class UserController {
 	 * Warning suppressed TODO
 	 * 
 	 */
-	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("/all")
 	public ResponseEntity<List<UserInfoModel>> getAllClients(){
 		List<UserInfoModel> users = new LinkedList<>(); //
@@ -75,10 +74,22 @@ public class UserController {
 	 * TODO - Check for implementation
 	 */
 	@Secured({ "ROLE_ADMIN" })
-	@PutMapping("/user/{id}")
-	public ResponseEntity<?> putClientById(@PathVariable long id,@RequestBody UserInfoModel info) {
+	@PutMapping("/{id}")
+	public ResponseEntity<?> putClientById(@PathVariable long id, @RequestBody UserInfoModel info) {
 		try{
 		 	return ResponseEntity.ok(new UserInfoModel(service.update(id,info)));
+		}catch (Exception e) {
+			return new ResponseEntity<List<UserInfoModel>>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getClientById(@PathVariable long id) {
+		try{
+		 	return ResponseEntity.ok(new UserInfoModel(service.findById(id)));
 		}catch (Exception e) {
 			return new ResponseEntity<List<UserInfoModel>>(HttpStatus.BAD_REQUEST);
 		}
