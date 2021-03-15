@@ -1,5 +1,7 @@
 package com.coinpi.cn.financialAPI.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -41,5 +43,13 @@ public class UserService implements UserDetailsService {
 
 	public int getUserRemainingCalls(int id) {
 		return userRepo.getRemainingCallsById(id);
+	}
+	
+	/**
+	 * 
+	 * @return a list of all users
+	 */
+	public List<User> getAll() {
+		return userRepo.findAll();
 	}
 }
