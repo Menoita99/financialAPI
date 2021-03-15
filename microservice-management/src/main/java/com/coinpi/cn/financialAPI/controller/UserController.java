@@ -33,8 +33,8 @@ public class UserController {
 	@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
 	public ResponseEntity<?> confirmToken( @RequestBody CreditCardModel rtt) {
 		User user = JwtUtil.getUser();
-		service.addCalls(user.getId(), rtt.getAmount()*0.01);
-		return ResponseEntity.ok(rtt);
+		user = service.addCalls(user.getId(), rtt.getAmount()/0.01);
+		return ResponseEntity.ok(user.getCalls());
 	}
 	
 	

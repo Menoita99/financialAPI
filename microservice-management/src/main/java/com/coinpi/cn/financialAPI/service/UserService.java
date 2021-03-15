@@ -60,9 +60,16 @@ public class UserService implements UserDetailsService {
 		return userRepo.save(u);
 	}
 
-	public void addCalls(long id, double calls) {
+	public User addCalls(long id, double calls) {
 		User u = userRepo.getOne(id);
 		u.setCalls(u.getCalls()+(long)calls);
+		return userRepo.save(u);
+	}
+	
+	public long subtractCallsFrom(long id) {
+		User u = userRepo.getOne(id);
+		u.setCalls(u.getCalls()-1);
 		userRepo.save(u);
+		return u.getCalls();
 	}
 }
