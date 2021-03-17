@@ -32,8 +32,8 @@ body:
 
 Depois de ter criado um utilizador temos de fazer o login
 
-Pedido: POST
-url: localhost:8080/api/login
+Pedido: POST |
+url: localhost:8080/api/login |
 body:
 {
     "username":"user@user.com",
@@ -51,8 +51,8 @@ Resposta ao login:
 
 Agora podemos ver quantas chamadas o nosso utilizador tem disponiveis:
 
-Pedido: GET
-url: localhost:8080/api/user/remainingCalls
+Pedido: GET |
+url: localhost:8080/api/user/remainingCalls |
 authorization: {token}
 
 Como acabamos de criar o utilizador temos 0 calls ao systema, devemos então comprar mais calls para chamar serviços
@@ -71,8 +71,8 @@ body:
 Podemos agora fazer um pedido a um serviço:
 
 
-Pedido: GET
-url: localhost:8081/api/stock/top
+Pedido: GET |
+url: localhost:8081/api/stock/top |
 authorization: {token}
 
 
