@@ -19,6 +19,7 @@ Usando um software como por exemplo o Postman é possivel fazer pedidos http mai
 
 Primeiro deve-se fazer um registo de um novo utilizador, para isso faça:
 
+
 Pedido: POST
 
 url: localhost:8080/api/register
@@ -31,35 +32,50 @@ body:
     "lastName":"User"
 }
 
+
 Depois de ter criado um utilizador temos de fazer o login
 
+
 Pedido: POST
+
 url: localhost:8080/api/login
+
 body:
 {
     "username":"user@user.com",
     "password":"123456789",
 }
 
+
 Devemos ter recebido um JWT token para authenticar o nosso utilizador,
 apartir daqui devemos usar sempre este token Bearer nos nosso próprio pedidos
 
+
 Resposta ao login:
+
 {
     "Acess token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZW5vaXRhQGdtYWlsLmNvbSIsImV4cCI6MTYxNjg0MTU3Nywicm9sIjpbIlJPTEVfQ0xJRU5UIl19.eJ0SMs6lyWuURHk
     6P6w_v96R41FEw9R_VDEc8gqcWllHmUw7QdqOYb7RLtty5mDPxWIXL_P-nbIiVrhKdAQWIA"
 }
 
+
 Agora podemos ver quantas chamadas o nosso utilizador tem disponiveis:
 
+
 Pedido: GET
+
 url: localhost:8080/api/user/remainingCalls
+
 authorization: {token}
+
 
 Como acabamos de criar o utilizador temos 0 calls ao systema, devemos então comprar mais calls para chamar serviços
 
+
 Pedido: POST
+
 url: localhost:8080/api/user/buy
+
 body:
 {
   "cardNumber": "1234 4654 1231 5463",
@@ -69,10 +85,14 @@ body:
   "currency": "EUR"
 }
 
+
 Podemos agora fazer um pedido a um serviço:
 
+
 Pedido: GET
+
 url: localhost:8081/api/stock/top
+
 authorization: {token}
 
 
