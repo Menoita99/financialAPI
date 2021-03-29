@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: security-service
+  labels:
+    app: financial-api-microservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: financial-api-microservice
+  template:
+    metadata:
+      labels:
+        app: financial-api-microservice
+    spec:
+      containers:
+      - name: security-service
+        image: menoita99/security_api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: security-service
+  labels:
+    app: financial-api-microservice
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: financial-api-microservice
+  type: NodePort
