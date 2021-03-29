@@ -23,7 +23,7 @@ import lombok.Data;
  */
 @Data
 @Service(value = "userService")
-@FeignClient(name = "employee")
+@FeignClient(name = "management-service")
 public class UserService implements UserDetailsService {
 
 	@Autowired
