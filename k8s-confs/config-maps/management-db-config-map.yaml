@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: managementmysqldb
+data:
+  database-name: managementdb
+  database-ip: 34.65.186.168
+  database-port: 3306

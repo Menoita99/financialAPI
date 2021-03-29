@@ -1,6 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mongodb
+  name: servicemysqldb
 data:
-  database-name: microservices
+  database-name: servicedb
+  database-ip: 34.65.186.168
+  database-port: 3306
