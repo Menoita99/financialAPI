@@ -16,6 +16,7 @@
 	<description>microservice-service</description>
 	<properties>
 		<java.version>15</java.version>
+        <maven.test.skip>true</maven.test.skip>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -113,6 +114,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<skipTests>true</skipTests>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
