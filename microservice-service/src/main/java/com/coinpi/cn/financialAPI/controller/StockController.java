@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coinpi.cn.financialAPI.model.StockPredictionModel;
+import com.coinpi.cn.financialAPI.service.ManagementServiceClient;
 import com.coinpi.cn.financialAPI.service.StockService;
 
 @RestController
@@ -21,6 +22,7 @@ public class StockController {
 	@Autowired
 	private StockService service;
 	
+
 	
 	//@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/{stock}")

@@ -84,8 +84,6 @@ public class UserController {
 	}
 	
 	
-	
-	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getClientById(@PathVariable long id) {
 		try{
@@ -94,4 +92,16 @@ public class UserController {
 			return new ResponseEntity<List<UserInfoModel>>(HttpStatus.BAD_REQUEST);
 		}
 	}
+	
+	
+	//@Secured({"ROLE_MICROSERVICE"})
+	@GetMapping("/subtractCall/{id}")
+	public ResponseEntity<?> subtractCall(@PathVariable long id) {
+		try{
+		 	return ResponseEntity.ok(service.subtractCallsFrom(id));
+		}catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 }

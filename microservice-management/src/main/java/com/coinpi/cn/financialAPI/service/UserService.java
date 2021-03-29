@@ -3,7 +3,6 @@ package com.coinpi.cn.financialAPI.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +22,6 @@ import lombok.Data;
  */
 @Data
 @Service(value = "userService")
-@FeignClient(name = "management-service")
 public class UserService implements UserDetailsService {
 
 	@Autowired
@@ -68,11 +66,15 @@ public class UserService implements UserDetailsService {
 		return userRepo.save(u);
 	}
 	
-	public long subtractCallsFrom(long id) {
+	public boolean subtractCallsFrom(long id) {
 		User u = userRepo.getOne(id);
 		u.setCalls(u.getCalls()-1);
-		userRepo.save(u);
-		return u.getCalls();
+		if(u.getCalls() >=1) {
+			u.setCalls(u.getCalls()-1);
+			userRepo.save(u);
+			return true;
+		}
+		return false;
 	}
 
 	public User findById(long id) {
