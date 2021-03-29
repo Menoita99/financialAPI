@@ -9,18 +9,18 @@ spec:
     serviceName: default-http-backend
     servicePort: 80
   rules:
-  - host: microservices.info
+  - host: localhost
     http:
       paths:
-      - path: /employee
+      - path: /management-service
         backend:
-          serviceName: employee
+          serviceName: management-service
           servicePort: 8080
-      - path: /department
+      - path: /security-service
         backend:
-          serviceName: department
+          serviceName: security-service
           servicePort: 8080
-      - path: /organization
+      - path: /service-service
         backend:
-          serviceName: organization
+          serviceName: service-service
           servicePort: 8080
