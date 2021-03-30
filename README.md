@@ -42,7 +42,7 @@ body:
 Depois de ter criado um utilizador temos de fazer o login
 
 Pedido: POST |
-url: localhost:8080/api/login |
+url: localhost:8082/api/login |
 body:
 {
     "username":"user@user.com",
