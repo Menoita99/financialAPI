@@ -5,7 +5,7 @@ Este trabalho é realizado no ambito da cadeira de computação em Núvem
 
 Arquitetura de micro serviços:
 
-![Arquitecture](https://user-images.githubusercontent.com/36867483/111453481-87f06200-870b-11eb-924d-295b8fc510cf.png)
+![Untitled](https://user-images.githubusercontent.com/36867483/113071121-06450d80-91bc-11eb-8309-9d069ec45f4f.png)
 
 Foram criados 5 containers , 2 persistentes para as bases de dados e 3 transientes que são os microserviços
 
