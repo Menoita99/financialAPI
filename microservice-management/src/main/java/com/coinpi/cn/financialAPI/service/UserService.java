@@ -67,8 +67,8 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public boolean subtractCallsFrom(long id) {
+		System.out.println("Subtract was called on management service!!!");
 		User u = userRepo.getOne(id);
-		u.setCalls(u.getCalls()-1);
 		if(u.getCalls() >=1) {
 			u.setCalls(u.getCalls()-1);
 			userRepo.save(u);
