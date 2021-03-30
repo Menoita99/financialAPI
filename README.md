@@ -7,8 +7,6 @@ Arquitetura de micro serviços:
 
 ![Untitled](https://user-images.githubusercontent.com/36867483/113071121-06450d80-91bc-11eb-8309-9d069ec45f4f.png)
 
-Foram criados 5 containers , 2 persistentes para as bases de dados e 3 transientes que são os microserviços
-
 # Correr a API
 
 Run local:
