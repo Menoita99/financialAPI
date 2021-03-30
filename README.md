@@ -11,8 +11,19 @@ Foram criados 5 containers , 2 persistentes para as bases de dados e 3 transient
 
 # Correr a API
 
+Run local:
+
+Para correr localmente os microserviços basta ter apenas o java 8 instalado (pode ser uma versão superior) e correr o script run_on_local.bat
 
 
+Run on docker:
+
+Para correr os microserviços no docker basta correr o script run_on_docker.bat
+
+
+Run on kubernetes:
+
+Para criar os pods e o ingress num kubernetes é necessário ter o kubectl e o kubernetes no sistema.
 
 # Fazer chamadas Http
 
