@@ -1,6 +1,8 @@
 package com.coinpi.cn.financialAPI.security.jwt;
 
 import com.coinpi.cn.financialAPI.database.entity.User;
+import com.coinpi.cn.financialAPI.model.LoginModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -15,12 +17,13 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 
 import java.io.IOException;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private static final String AUTH_URL = "/cloud/api/login";
+    private static final String AUTH_URL = "/api/login";
 
     private final AuthenticationManager authenticationManager;
 
@@ -39,11 +42,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) {
 
         try {
-//            JwtLoginRequest login = new ObjectMapper().readValue(, JwtLoginRequest.class);
-        	String requestStr = new String(request.getInputStream().readAllBytes());
-            JSONObject j = new JSONObject(requestStr);
-            String username = j.getString("username");
-            String password = j.getString("password");
+        	LoginModel login = new ObjectMapper().readValue(request.getInputStream(), LoginModel.class);
+//        	String requestStr = new String(request.getInputStream().readAllBytes());
+//            JSONObject j = new JSONObject(requestStr);
+//            String username = j.getString("username");
+//            String password = j.getString("password");
+        	
+        	String username = login.getUsername();
+        	String password = login.getPassword();
 
             if(username.isEmpty() || password.isEmpty()) 
                 throw new BadCredentialsException("Missing username/password");
@@ -62,6 +68,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
      * This method is called if authentication attempt has success
      */
     @Override
+    @Transactional
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain filterChain, Authentication authentication) throws IOException {
     	 

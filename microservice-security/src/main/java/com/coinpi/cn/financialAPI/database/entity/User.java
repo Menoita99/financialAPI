@@ -7,9 +7,19 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,28 +28,43 @@ import com.coinpi.cn.financialAPI.security.SecurityConfig;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @NoArgsConstructor
 public class User implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 
+	@Email
 	@NotNull(message = "This field can't be empty")
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	@NotNull(message = "This field can't be empty")
+	@Column(nullable = false)
 	private String password;
 
 	@NotNull(message = "This field can't be empty")
+	@Column(nullable = false)
 	private String firstName;
 
 	@NotNull(message = "This field can't be empty")
+	@Column(nullable = false)
 	private String lastName;
+	
+	private long calls = 0;
 
+	@ElementCollection(targetClass=LocalDateTime.class)
+	@LazyCollection(LazyCollectionOption.TRUE)
 	private Set<LocalDateTime> logs = new LinkedHashSet<>();
 
+	@ElementCollection(targetClass=AcessRole.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@Enumerated(EnumType.STRING)
 	private Set<AcessRole> roles = new LinkedHashSet<>();
 
 	
@@ -52,7 +77,6 @@ public class User implements UserDetails{
 		this.roles = roles;
 		logs.add(LocalDateTime.now());
 	}
-	
 	
 
 
@@ -103,4 +127,5 @@ public class User implements UserDetails{
 	public void setPassword(String password) {
 		this.password = SecurityConfig.getEncoder().encode(password);
 	}
+
 }
