@@ -21,7 +21,7 @@ Para correr os microserviços no docker basta correr o script run_on_docker.bat
 
 Run on kubernetes:
 
-Para criar os pods e o ingress num kubernetes é necessário ter o kubectl e o kubernetes no sistema.
+Para criar os pods e o ingress num cluster kubernetes é necessário ter o kubectl e o kubernetes no sistema.
 
 # Fazer chamadas Http
 
