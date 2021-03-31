@@ -1,8 +1,6 @@
 package com.coinpi.cn.financialAPI.security;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
@@ -29,11 +27,10 @@ import lombok.Getter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
-*/
-public class SecurityConfig {//extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-/*
+
     @Autowired
     private UnauthorizedHandler unauthorizedHandler;
 
@@ -45,29 +42,29 @@ public class SecurityConfig {//extends WebSecurityConfigurerAdapter{
 	private UserDetailsService userDetailsService;
 
 
-	*/
 	
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception{
-//		AuthenticationManager authManager = authenticationManager();
-//
-//		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
-//			.and().authorizeRequests()
-//			.antMatchers(HttpMethod.GET, JwtAuthenticationFilter.getAuthUrl(), "/api/user/*").permitAll()
-//			.antMatchers(HttpMethod.POST,"/cloud/api/user/register/").permitAll()
-//			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-//			.anyRequest().authenticated()
-//			.and().csrf().disable()
-//			.addFilter(new CorsConfig())
-//			.addFilter(new JwtAuthenticationFilter(authManager))
-//			.addFilter(new JwtAuthorizationFilter(authManager, userDetailsService))
-//			.exceptionHandling()
-//			.accessDeniedHandler(accessDeniedHandler)
-//			.authenticationEntryPoint(unauthorizedHandler)
-//			.and()
-//			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//	}
-/*
+	
+	@Override
+	protected void configure(HttpSecurity http) throws Exception{
+		AuthenticationManager authManager = authenticationManager();
+
+		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
+			.and().authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/api/user/subtractCall/*",JwtAuthenticationFilter.getAuthUrl()).permitAll()
+			.antMatchers(HttpMethod.POST,"/cloud/api/user/register/","/api/register").permitAll()
+			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
+			.anyRequest().authenticated()
+			.and().csrf().disable()
+			.addFilter(new CorsConfig())
+			.addFilter(new JwtAuthenticationFilter(authManager))
+			.addFilter(new JwtAuthorizationFilter(authManager, userDetailsService))
+			.exceptionHandling()
+			.accessDeniedHandler(accessDeniedHandler)
+			.authenticationEntryPoint(unauthorizedHandler)
+			.and()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(getEncoder());
@@ -75,10 +72,11 @@ public class SecurityConfig {//extends WebSecurityConfigurerAdapter{
 
 
 
-*/
-	
+
+	/**
+	 * @return the encoder
+	 */
 	public static BCryptPasswordEncoder getEncoder() {
 		return encoder;
 	}
-		
 }

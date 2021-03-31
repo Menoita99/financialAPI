@@ -1,6 +1,6 @@
 FROM openjdk:17-ea-10-jdk-alpine3.13
 ENV APP_HOME /opt
-EXPOSE 8080
+EXPOSE 8082
 COPY target/*.jar $APP_HOME/app.jar
 WORKDIR $APP_HOME
 ENTRYPOINT ["sh", "-c"]

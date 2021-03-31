@@ -5,14 +5,23 @@ Este trabalho é realizado no ambito da cadeira de computação em Núvem
 
 Arquitetura de micro serviços:
 
-![Arquitecture](https://user-images.githubusercontent.com/36867483/111453481-87f06200-870b-11eb-924d-295b8fc510cf.png)
-
-Foram criados 5 containers , 2 persistentes para as bases de dados e 3 transientes que são os microserviços
+![Untitled](https://user-images.githubusercontent.com/36867483/113071121-06450d80-91bc-11eb-8309-9d069ec45f4f.png)
 
 # Correr a API
 
+Run local:
+
+Para correr localmente os microserviços basta ter apenas o java 8 instalado (pode ser uma versão superior) e correr o script run_on_local.bat
 
 
+Run on docker:
+
+Para correr os microserviços no docker basta correr o script run_on_docker.bat
+
+
+Run on kubernetes:
+
+Para criar os pods e o ingress num kubernetes é necessário ter o kubectl e o kubernetes no sistema.
 
 # Fazer chamadas Http
 
@@ -33,7 +42,7 @@ body:
 Depois de ter criado um utilizador temos de fazer o login
 
 Pedido: POST |
-url: localhost:8080/api/login |
+url: localhost:8082/api/login |
 body:
 {
     "username":"user@user.com",
