@@ -63,13 +63,13 @@ Agora podemos ver quantas chamadas o nosso utilizador tem disponiveis:
 
 Pedido: GET |
 url: localhost:8080/api/user/remainingCalls |
-authorization: {token}
+authorization: {bearer token}
 
 Como acabámos de criar o utilizador temos 0 calls ao sistema, devemos então comprar mais calls para chamar serviços
 
 Pedido: GET|
 url: localhost:8080/api/user/buy |
-authorization: {token} |
+authorization: {bearer token} |
 body:
 {
   "cardNumber": "1234 4654 1231 5463",
@@ -83,6 +83,6 @@ Podemos agora fazer um pedido a um serviço:
 
 Pedido: GET |
 url: localhost:8081/api/stock/top |
-authorization: {token}
+authorization: {bearer token}
 
 
