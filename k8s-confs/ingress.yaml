@@ -19,8 +19,8 @@ spec:
       - path: /security-service
         backend:
           serviceName: security-service
-          servicePort: 8080
+          servicePort: 8082
       - path: /service-service
         backend:
           serviceName: service-service
-          servicePort: 8080
+          servicePort: 8081
