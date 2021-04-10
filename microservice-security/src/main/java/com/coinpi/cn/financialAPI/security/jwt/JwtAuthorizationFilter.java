@@ -20,52 +20,37 @@ import java.io.IOException;
 import java.util.List;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-    private static Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
+	private static Logger logger = LoggerFactory.getLogger(JwtAuthorizationFilter.class);
 
-    private UserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService;
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,UserDetailsService userDetailsService) {
-        super(authenticationManager);
-        this.userDetailsService = userDetailsService;
-    }
+	public JwtAuthorizationFilter(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+		super(authenticationManager);
+		this.userDetailsService = userDetailsService;
+	}
 
-    
-    
-    
-    
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws IOException, ServletException {
-
-        String token = request.getHeader("Authorization");//read Authorization param from HTTP request
-
-        if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        try {
-
-            if(! JwtUtil.isTokenValid(token)) {
-                throw new AccessDeniedException("Invalid Token");
-            }
-
-            String login = JwtUtil.getLogin(token);
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(login);
-
-            List<GrantedAuthority> authorities = JwtUtil.getRoles(token);
-
-            Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
-
-            //Saves Authentication into Spring context
-            SecurityContextHolder.getContext().setAuthentication(auth);
-            filterChain.doFilter(request, response);
-
-        } catch (RuntimeException ex) {
-            logger.error("Authentication error: " + ex.getMessage(),ex);
-
-            throw ex;
-        }
-    }
+	@Override
+	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws IOException, ServletException {
+		String token = request.getHeader("Authorization");//read Authorization param from HTTP request
+		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
+			filterChain.doFilter(request, response);
+			return;
+		}
+		try {
+			if (!JwtUtil.isTokenValid(token)) {
+				throw new AccessDeniedException("Invalid Token");
+			}
+			String login = JwtUtil.getLogin(token);
+			UserDetails userDetails = userDetailsService.loadUserByUsername(login);
+			List<GrantedAuthority> authorities = JwtUtil.getRoles(token);
+			Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+			// Saves Authentication into Spring context
+			SecurityContextHolder.getContext().setAuthentication(auth);
+			filterChain.doFilter(request, response);
+		} catch (RuntimeException ex) {
+			logger.error("Authentication error: " + ex.getMessage(), ex);
+			throw ex;
+		}
+	}
 }
