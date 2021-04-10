@@ -14,30 +14,38 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.coinpi.cn.financialAPI.database.entity.User;
 import com.coinpi.cn.financialAPI.model.UserDetailsModel;
 import com.coinpi.cn.financialAPI.security.jwt.JwtUtil;
 import com.coinpi.cn.financialAPI.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping("api/security")
+@RequestMapping(produces = "application/json" , value = "api/security")
 public class SecurityController{
 	
 	@Autowired
 	private UserService service;
 	
 	@GetMapping("/validateToken")
-	public ResponseEntity<?> validateToken(String token) {
+	public ResponseEntity<?> validateToken(@RequestParam String token) {
+		try {
 		if(!JwtUtil.isTokenValid(token)) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
 		String login = JwtUtil.getLogin(token);
-		UserDetails userDetails = service.loadUserByUsername(login);
-		List<GrantedAuthority> authorities = JwtUtil.getRoles(token);
-		UserDetailsModel userDetailsModel = new UserDetailsModel(userDetails, authorities);
-		return ResponseEntity.ok(userDetailsModel);
+		User user = service.findByUsername(login);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String str = mapper.writeValueAsString(user).replace("\\", "\\\\");
+		System.out.println(str);
+		return ResponseEntity.ok(user);
+		}catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
 	}
 
 }

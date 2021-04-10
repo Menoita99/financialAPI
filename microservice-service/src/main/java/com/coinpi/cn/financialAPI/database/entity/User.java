@@ -25,12 +25,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.coinpi.cn.financialAPI.security.SecurityConfig;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails{
 
 	private static final long serialVersionUID = 1L;
@@ -75,9 +77,6 @@ public class User implements UserDetails{
 		this.roles = roles;
 		logs.add(LocalDateTime.now());
 	}
-	
-	
-
 
 	/**
 	 * Add an entry into user logs set
