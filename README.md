@@ -21,7 +21,8 @@ Para correr os microserviços no docker basta correr o script run_on_docker.bat
 
 Run on kubernetes:
 
-Para criar os pods e o ingress num kubernetes é necessário ter o kubectl e o kubernetes no sistema.
+Para criar os pods e o ingress num cluster kubernetes é necessário ter o kubectl e o kubernetes no sistema.
+Basta correr o script run_on_kubenetes para aplicar as configurações yaml.
 
 # Fazer chamadas Http
 
@@ -62,13 +63,13 @@ Agora podemos ver quantas chamadas o nosso utilizador tem disponiveis:
 
 Pedido: GET |
 url: localhost:8080/api/user/remainingCalls |
-authorization: {token}
+authorization: {bearer token}
 
 Como acabámos de criar o utilizador temos 0 calls ao sistema, devemos então comprar mais calls para chamar serviços
 
 Pedido: GET|
 url: localhost:8080/api/user/buy |
-authorization: {token} |
+authorization: {bearer token} |
 body:
 {
   "cardNumber": "1234 4654 1231 5463",
@@ -82,6 +83,6 @@ Podemos agora fazer um pedido a um serviço:
 
 Pedido: GET |
 url: localhost:8081/api/stock/top |
-authorization: {token}
+authorization: {bearer token}
 
 
