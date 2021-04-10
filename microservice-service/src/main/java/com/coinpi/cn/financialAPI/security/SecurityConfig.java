@@ -20,6 +20,7 @@ import com.coinpi.cn.financialAPI.security.jwt.JwtAuthenticationFilter;
 import com.coinpi.cn.financialAPI.security.jwt.JwtAuthorizationFilter;
 import com.coinpi.cn.financialAPI.security.jwt.handler.AccessDeniedHandler;
 import com.coinpi.cn.financialAPI.security.jwt.handler.UnauthorizedHandler;
+import com.coinpi.cn.financialAPI.service.ServiceSecurity;
 
 import lombok.Getter;
 
@@ -30,7 +31,7 @@ import lombok.Getter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
+	
     @Autowired
     private UnauthorizedHandler unauthorizedHandler;
 
@@ -40,6 +41,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	@Qualifier("userService")
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+	private ServiceSecurity serviceSecurity;
 
 
 	
@@ -50,14 +54,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
 			.and().authorizeRequests()
-			.antMatchers(HttpMethod.GET, JwtAuthenticationFilter.getAuthUrl(), "/api/user/*", "/api/stock/*").permitAll()
+			.antMatchers(HttpMethod.GET, JwtAuthenticationFilter.getAuthUrl(), "/api/user/*", "/api/stock/*", "/").permitAll()
 			.antMatchers(HttpMethod.POST,"/cloud/api/user/register/").permitAll()
 			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.addFilter(new CorsConfig())
 			.addFilter(new JwtAuthenticationFilter(authManager))
-			.addFilter(new JwtAuthorizationFilter(authManager, userDetailsService))
+			.addFilter(new JwtAuthorizationFilter(authManager, userDetailsService, serviceSecurity))
 			.exceptionHandling()
 			.accessDeniedHandler(accessDeniedHandler)
 			.authenticationEntryPoint(unauthorizedHandler)

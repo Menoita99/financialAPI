@@ -24,6 +24,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepo;
+	
 
 	public String example() {
 		return "Calling service Method";
@@ -39,4 +40,12 @@ public class UserService implements UserDetailsService {
 			throw new UsernameNotFoundException("User with email " + username + "  not found!");
 		return user;
 	}
+
+	public User findByUsername(String login) {
+		User user = userRepo.findByEmail(login);
+		if (user == null)
+			throw new UsernameNotFoundException("User with email " + login + "  not found!");
+		return user;
+	}
+
 }
