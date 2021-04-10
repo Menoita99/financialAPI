@@ -1,26 +1,20 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: gateway-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: financial-ingress
 spec:
-  backend:
-    serviceName: default-http-backend
-    servicePort: 8000
   rules:
-  - host: kubernetes.docker.internal
-    http:
+  - http:
       paths:
-      - path: /management-service
+      - path: /management-service/*
         backend:
           serviceName: management-service
           servicePort: 8080
-      - path: /security-service
-        backend:
-          serviceName: security-service
-          servicePort: 8082
-      - path: /service-service
+      - path: /service-service/*
         backend:
           serviceName: service-service
           servicePort: 8081
+      - path: /security-service/*
+        backend:
+          serviceName: security-service
+          servicePort: 8082
