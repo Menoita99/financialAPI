@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface ServiceSecurity {
 	
 	@GetMapping("/api/security/validateToken")
-	ResponseEntity<?> tokenValidation(@RequestParam String token);
+	ResponseEntity<String> tokenValidation(@RequestParam String token);
 }

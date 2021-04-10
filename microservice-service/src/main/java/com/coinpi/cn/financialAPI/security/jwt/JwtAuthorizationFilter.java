@@ -20,6 +20,7 @@ import com.coinpi.cn.financialAPI.database.entity.User;
 import com.coinpi.cn.financialAPI.model.UserDetailsModel;
 import com.coinpi.cn.financialAPI.service.ServiceSecurity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -58,14 +59,25 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         try {   
-            ResponseEntity<?> responseEnt = serviceSecurity.tokenValidation(token);
+            ResponseEntity<String> responseEnt = serviceSecurity.tokenValidation(token);
             
             if(responseEnt.getStatusCode() != HttpStatus.OK)
             	throw new AccessDeniedException("Invalid Token");
+            
             System.out.println(responseEnt.getBody().toString());
             
             
-            UserDetails userDetails = new ObjectMapper().convertValue(responseEnt.getBody().toString(), User.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            JSONObject obj = new JSONObject(responseEnt.getBody());
+            obj.remove("enabled");
+            obj.remove("accountNonExpired");
+            obj.remove("credentialsNonExpired");
+            obj.remove("accountNonLocked");
+            obj.remove("authorities");
+            obj.remove("username");
+			UserDetails userDetails = objectMapper.readValue(obj.toString(), User.class);
+			System.out.println(userDetails.getUsername());
+			userDetails.getAuthorities().forEach(r -> System.out.println(r.getAuthority()));
             
             Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             //Saves Authentication into Spring context

@@ -57,6 +57,8 @@ public class User implements UserDetails{
 	@NotNull(message = "This field can't be empty")
 	@Column(nullable = false)
 	private String lastName;
+	
+	private long calls = 0;
 
 	@ElementCollection(targetClass=LocalDateTime.class)
 	@LazyCollection(LazyCollectionOption.TRUE)
@@ -77,6 +79,8 @@ public class User implements UserDetails{
 		this.roles = roles;
 		logs.add(LocalDateTime.now());
 	}
+	
+
 
 	/**
 	 * Add an entry into user logs set
@@ -125,4 +129,5 @@ public class User implements UserDetails{
 	public void setPassword(String password) {
 		this.password = SecurityConfig.getEncoder().encode(password);
 	}
+
 }

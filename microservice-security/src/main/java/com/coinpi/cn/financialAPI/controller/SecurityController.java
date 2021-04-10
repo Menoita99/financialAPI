@@ -31,18 +31,18 @@ public class SecurityController{
 	private UserService service;
 	
 	@GetMapping("/validateToken")
-	public ResponseEntity<?> validateToken(@RequestParam String token) {
+	public ResponseEntity<String> validateToken(@RequestParam String token) {
 		try {
 		if(!JwtUtil.isTokenValid(token)) {
             return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
         }
 		String login = JwtUtil.getLogin(token);
 		User user = service.findByUsername(login);
+		user.getLogs().clear();
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String str = mapper.writeValueAsString(user).replace("\\", "\\\\");
-		System.out.println(str);
-		return ResponseEntity.ok(user);
+		return ResponseEntity.<String>ok(str);
 		}catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
