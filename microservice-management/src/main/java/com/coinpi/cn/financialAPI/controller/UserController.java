@@ -22,7 +22,7 @@ import com.coinpi.cn.financialAPI.security.jwt.JwtUtil;
 import com.coinpi.cn.financialAPI.service.UserService;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("management/api/user")
 public class UserController {
 	
 	@Autowired
