@@ -98,10 +98,7 @@ public class UserController {
 	@GetMapping("/subtractCall/{id}")
 	public ResponseEntity<?> subtractCall(@PathVariable long id) {
 		try{
-			if(service.subtractCallsFrom(id))
-				return ResponseEntity.ok("Call subtracted");
-			else
-				return new ResponseEntity<String>("Not enough calls", HttpStatus.BAD_REQUEST);
+		 	return ResponseEntity.ok(service.subtractCallsFrom(id));
 		}catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

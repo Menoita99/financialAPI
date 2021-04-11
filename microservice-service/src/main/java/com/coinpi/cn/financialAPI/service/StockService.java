@@ -44,9 +44,7 @@ public class StockService {
 	}
 
 	public List<StockPredictionModel> getTopPredictions() {
-		System.out.println("Antes do subtract calls no microservice-service");
 		ResponseEntity<?> response = managementService.subtractCall(JwtUtil.getUser().getId());
-		System.out.println(response);
 		if (response.getStatusCode() == HttpStatus.OK)
 			if ((boolean) response.getBody()) {
 				List<StockPredictionModel> predictions = new ArrayList<StockPredictionModel>();
