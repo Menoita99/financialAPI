@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "security-service", url = "http://localhost:8082")
 public interface ManagementSecurity {
 
-	@GetMapping("/api/security/validateToken")
+	@GetMapping("security/api/security/validateToken")
 	ResponseEntity<?> tokenValidation(@RequestParam String token);
 	
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "management-service", url = "http://localhost:8080")
 public interface ManagementServiceClient {
 	
-	@GetMapping("/api/user/subtractCall/{id}")
+	@GetMapping("management/api/user/subtractCall/{id}")
 	ResponseEntity<?> subtractCall(@PathVariable long id);
 	
 	

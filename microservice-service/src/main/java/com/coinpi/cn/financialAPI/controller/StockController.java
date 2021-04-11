@@ -15,7 +15,7 @@ import com.coinpi.cn.financialAPI.model.StockPredictionModel;
 import com.coinpi.cn.financialAPI.service.StockService;
 
 @RestController
-@RequestMapping("api/stock")
+@RequestMapping("service/api/stock")
 public class StockController {
 	
 	@Autowired

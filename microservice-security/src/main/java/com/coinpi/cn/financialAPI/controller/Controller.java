@@ -29,7 +29,7 @@ public class Controller {
 	}
 
 
-	@PostMapping("/register")
+	@PostMapping("security/register")
 	public ResponseEntity<String> confirmToken(@RequestBody RegistModel registData) {
 		try {
 			User user = userRepo.save(new User(registData));

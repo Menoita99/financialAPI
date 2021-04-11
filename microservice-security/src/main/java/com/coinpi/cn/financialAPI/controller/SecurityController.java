@@ -14,7 +14,7 @@ import com.coinpi.cn.financialAPI.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
-@RequestMapping(produces = "application/json" , value = "api/security")
+@RequestMapping(produces = "application/json" , value = "security/api/security")
 public class SecurityController{
 	
 	@Autowired
