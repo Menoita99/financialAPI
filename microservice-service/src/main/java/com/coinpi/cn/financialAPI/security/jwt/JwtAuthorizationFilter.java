@@ -64,7 +64,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             if(responseEnt.getStatusCode() != HttpStatus.OK)
             	throw new AccessDeniedException("Invalid Token");
             
-            System.out.println(responseEnt.getBody().toString());
             
             
             ObjectMapper objectMapper = new ObjectMapper();
@@ -76,14 +75,11 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             obj.remove("authorities");
             obj.remove("username");
 			UserDetails userDetails = objectMapper.readValue(obj.toString(), User.class);
-			System.out.println(userDetails.getUsername());
-			userDetails.getAuthorities().forEach(r -> System.out.println(r.getAuthority()));
             
             Authentication auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             //Saves Authentication into Spring context
             SecurityContextHolder.getContext().setAuthentication(auth);
             filterChain.doFilter(request, response);
-            System.out.println("ENTREI NO FILTRO DO SERVICE CRL");
 
         } catch (RuntimeException ex) {
             logger.error("Authentication error: " + ex.getMessage(),ex);

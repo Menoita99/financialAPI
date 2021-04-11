@@ -25,23 +25,23 @@ public class StockController {
 	
 	//@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/{stock}")
-	public ResponseEntity<StockPredictionModel> getPredictionByStock(@PathVariable String stock) {
+	public ResponseEntity<?> getPredictionByStock(@PathVariable String stock) {
 		try {
 			StockPredictionModel stockPrediction = service.getPredictionByStock(stock);
 			return ResponseEntity.<StockPredictionModel>ok(stockPrediction);			
 		}catch (Exception e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 	
 	//@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/top")
-	public ResponseEntity<List<StockPredictionModel>> getTopPredictions() {
+	public ResponseEntity<?> getTopPredictions() {
 		try {
 			List<StockPredictionModel> stockPredictions = service.getTopPredictions();
 			return ResponseEntity.<List<StockPredictionModel>>ok(stockPredictions);			
 		}catch (Exception e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class StockController {
 			else
 				return ResponseEntity.<List<StockPredictionModel>>ok(stockPredictions);			
 		}catch (Exception e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
 
