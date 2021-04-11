@@ -16,7 +16,7 @@ import com.coinpi.cn.financialAPI.database.repository.UserRepository;
 import com.coinpi.cn.financialAPI.model.RegistModel;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/security")
 public class Controller {
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class Controller {
 	}
 
 
-	@PostMapping("security/register")
+	@PostMapping("/register")
 	public ResponseEntity<String> confirmToken(@RequestBody RegistModel registData) {
 		try {
 			User user = userRepo.save(new User(registData));

@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import com.coinpi.cn.financialAPI.security.jwt.JwtAuthorizationFilter;
 import com.coinpi.cn.financialAPI.security.jwt.handler.AccessDeniedHandler;
 import com.coinpi.cn.financialAPI.security.jwt.handler.UnauthorizedHandler;
+import com.coinpi.cn.financialAPI.service.ServiceSecurity;
 
 import lombok.Getter;
 
@@ -40,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Qualifier("userService")
 	private UserDetailsService userDetailsService;
 	
-
+    @Autowired
+	private ServiceSecurity serviceSecurity;
 	
 	
 	@Override
@@ -49,13 +51,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
 			.and().authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/api/user/*", "/api/stock/*", "/","/register").permitAll()
-			.antMatchers(HttpMethod.POST,"/cloud/api/user/register/").permitAll()
+			.antMatchers(HttpMethod.GET, "/service").permitAll()
+			.antMatchers(HttpMethod.POST).permitAll()
 			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.addFilter(new CorsConfig())
-			.addFilter(new JwtAuthorizationFilter(authManager, userDetailsService))
+			.addFilter(new JwtAuthorizationFilter(authManager, serviceSecurity))
 			.exceptionHandling()
 			.accessDeniedHandler(accessDeniedHandler)
 			.authenticationEntryPoint(unauthorizedHandler)
