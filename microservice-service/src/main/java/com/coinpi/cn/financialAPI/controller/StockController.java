@@ -23,7 +23,7 @@ public class StockController {
 	
 
 	
-	//@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
+	@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/{stock}")
 	public ResponseEntity<?> getPredictionByStock(@PathVariable String stock) {
 		try {
