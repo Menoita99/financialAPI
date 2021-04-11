@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 
-import com.coinpi.cn.financialAPI.security.jwt.JwtAuthenticationFilter;
 import com.coinpi.cn.financialAPI.security.jwt.JwtAuthorizationFilter;
 import com.coinpi.cn.financialAPI.security.jwt.handler.AccessDeniedHandler;
 import com.coinpi.cn.financialAPI.security.jwt.handler.UnauthorizedHandler;
@@ -50,13 +49,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
 			.and().authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/api/user/subtractCall/*", "/",JwtAuthenticationFilter.getAuthUrl()).permitAll()
+			.antMatchers(HttpMethod.GET, "/api/user/subtractCall/*", "/").permitAll()
 			.antMatchers(HttpMethod.POST,"/cloud/api/user/register/","/api/register").permitAll()
 			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.addFilter(new CorsConfig())
-			.addFilter(new JwtAuthenticationFilter(authManager))
 			.addFilter(new JwtAuthorizationFilter(authManager, userDetailsService))
 			.exceptionHandling()
 			.accessDeniedHandler(accessDeniedHandler)

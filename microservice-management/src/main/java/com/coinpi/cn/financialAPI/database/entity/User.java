@@ -23,7 +23,6 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.coinpi.cn.financialAPI.model.RegistModel;
 import com.coinpi.cn.financialAPI.model.UserInfoModel;
 import com.coinpi.cn.financialAPI.security.SecurityConfig;
 
@@ -77,17 +76,6 @@ public class User implements UserDetails{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.roles = roles;
-		logs.add(LocalDateTime.now());
-	}
-	
-
-
-	public User(RegistModel registData) {
-		this.email = registData.getUsername();
-		this.password = SecurityConfig.getEncoder().encode(registData.getPassword());
-		this.firstName = registData.getFirstName();
-		this.lastName = registData.getLastName();
-		this.roles = Set.of(AcessRole.ROLE_CLIENT);
 		logs.add(LocalDateTime.now());
 	}
 	

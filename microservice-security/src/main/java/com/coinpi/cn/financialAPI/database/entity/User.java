@@ -23,6 +23,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.coinpi.cn.financialAPI.model.RegistModel;
+import com.coinpi.cn.financialAPI.model.UserInfoModel;
 import com.coinpi.cn.financialAPI.security.SecurityConfig;
 
 import lombok.Data;
@@ -80,6 +82,17 @@ public class User implements UserDetails{
 	
 
 
+	public User(RegistModel registData) {
+		this.email = registData.getUsername();
+		this.password = SecurityConfig.getEncoder().encode(registData.getPassword());
+		this.firstName = registData.getFirstName();
+		this.lastName = registData.getLastName();
+		this.roles = Set.of(AcessRole.ROLE_CLIENT);
+		logs.add(LocalDateTime.now());
+	}
+	
+
+
 	/**
 	 * Add an entry into user logs set
 	 */
@@ -128,4 +141,11 @@ public class User implements UserDetails{
 		this.password = SecurityConfig.getEncoder().encode(password);
 	}
 
+
+
+	public void update(UserInfoModel info) {
+		if(info.getEmail() != null && !info.getEmail().isBlank()) this.email=info.getEmail();
+		if(info.getFirstName() != null && !info.getFirstName().isBlank()) this.email=info.getFirstName();
+		if(info.getLastName() != null && !info.getLastName().isBlank()) this.email=info.getLastName();
+	}
 }

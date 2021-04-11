@@ -50,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
 			.and().authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/api/user/subtractCall/*", "/", "/api/security/*", JwtAuthenticationFilter.getAuthUrl()).permitAll()
+			.antMatchers(HttpMethod.GET, "/api/user/subtractCall/*",  "/api/security/*", JwtAuthenticationFilter.getAuthUrl()).permitAll()
 			.antMatchers(HttpMethod.POST,"/cloud/api/user/register/","/api/register").permitAll()
-			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
+			.antMatchers("/v2/api-docs", "/configuration/**", "/*","/swagger*/**", "/webjars/**").permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.addFilter(new CorsConfig())
