@@ -6,15 +6,16 @@ spec:
   rules:
   - http:
       paths:
-      - path: /management-service/*
+      - path: /management/*
         backend:
           serviceName: management-service
           servicePort: 8080
-      - path: /service-service/*
+      - path: /service/*
         backend:
           serviceName: service-service
           servicePort: 8081
-      - path: /security-service/*
+#      - path: /security-service/*
+      - path: /security/*
         backend:
           serviceName: security-service
           servicePort: 8082

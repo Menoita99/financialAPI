@@ -54,6 +54,7 @@ public class UserController {
 	 * Warning suppressed TODO
 	 * 
 	 */
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/all")
 	public ResponseEntity<List<UserInfoModel>> getAllClients(){
 		List<UserInfoModel> users = new LinkedList<>(); //

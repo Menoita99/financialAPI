@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: service-service
   labels:
-    app: financial-api-microservice
+    app: service-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: financial-api-microservice
+      app: service-service
   template:
     metadata:
       labels:
-        app: financial-api-microservice
+        app: service-service
     spec:
       containers:
       - name: service-service
@@ -26,11 +26,11 @@ kind: Service
 metadata:
   name: service-service
   labels:
-    app: financial-api-microservice
+    app: service-service
 spec:
   ports:
   - port: 8081
     protocol: TCP
   selector:
-    app: financial-api-microservice
+    app: service-service
   type: NodePort
