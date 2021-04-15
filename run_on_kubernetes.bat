@@ -1,7 +1,10 @@
 @ECHO OFF
-SET dir=%cd%
 
-cd "%dir%"\k8s-confs
+kubectl delete ingress --all
+kubectl delete pods --all
+kubectl delete service --all
 
-kubectl apply -f microservices
-kubectl apply -f ingress.yaml
+kubectl apply -f k8s-confs/microservices
+kubectl apply -f k8s-confs/ingress.yaml
+
+pause
