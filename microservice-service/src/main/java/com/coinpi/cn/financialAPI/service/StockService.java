@@ -27,20 +27,25 @@ public class StockService {
 			if ((boolean) response.getBody()) {
 				// TODO: comunicar com o data science
 				// temporário, devolver este random
-				Random r = new Random();
-				double prob = r.nextDouble();
-				StockPredictionModel model = new StockPredictionModel();
-				model.setDateTime(LocalDateTime.now());
-				model.setStock(stock);
-				model.setProb(prob);
-				if (prob < 0.5)
-					model.setAction(Action.SELL);
-				else
-					model.setAction(Action.BUY);
+				StockPredictionModel model = getStock(stock);
 				return model;
 			}
 
 		throw new IllegalStateException("not enough calls");
+	}
+
+	private StockPredictionModel getStock(String stock) {
+		Random r = new Random();
+		double prob = r.nextDouble();
+		StockPredictionModel model = new StockPredictionModel();
+		model.setDateTime(LocalDateTime.now());
+		model.setStock(stock);
+		model.setProb(prob);
+		if (prob < 0.5)
+			model.setAction(Action.SELL);
+		else
+			model.setAction(Action.BUY);
+		return model;
 	}
 
 	public List<StockPredictionModel> getTopPredictions() {
@@ -59,7 +64,8 @@ public class StockService {
 					for (int j = 0; j < 3; j++) {
 						stockName += CHARS.charAt(r.nextInt(CHARS.length()));
 					}
-					StockPredictionModel model = getPredictionByStock(stockName);
+					
+					StockPredictionModel model = getStock(stockName);
 					predictions.add(model);
 				}
 				return predictions;
@@ -83,7 +89,8 @@ public class StockService {
 					for (int j = 0; j < 3; j++) {
 						stockName += CHARS.charAt(r.nextInt(CHARS.length()));
 					}
-					StockPredictionModel model = getPredictionByStock(stockName);
+					
+					StockPredictionModel model = getStock(stockName);
 					predictions.add(model);
 				}
 				return predictions;
