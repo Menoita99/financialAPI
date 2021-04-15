@@ -6,7 +6,6 @@ echo Starting processing microservice-management
 cd microservice-management
 call mvn clean compile package
 echo Building image microservice-management
-
 docker build -t menoita99/management_api:latest .
 echo Pushing image microservice-management
 docker push menoita99/management_api:latest
