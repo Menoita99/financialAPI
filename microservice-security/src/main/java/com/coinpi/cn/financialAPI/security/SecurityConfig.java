@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())
 			.and().authorizeRequests()
-			.antMatchers(HttpMethod.GET,  "/security/*", JwtAuthenticationFilter.getAuthUrl()).permitAll()
+			.antMatchers(HttpMethod.GET,  "/security/*","/loaderio-ee3e2e35dd64ed6093114831839a2929/","/", JwtAuthenticationFilter.getAuthUrl()).permitAll()
 			.antMatchers(HttpMethod.POST, "/security/*").permitAll()
 			.antMatchers("/v2/api-docs", "/configuration/**", "/*","/swagger*/**", "/webjars/**").permitAll()
 			.anyRequest().authenticated()

@@ -24,7 +24,7 @@ public class UnauthorizedHandler implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
     	
-    	logger.warn("UnauthorizedHandler, exception: " + authException);
+    	logger.warn("UnauthorizedHandler,path:"+request.getServletPath()+" exception: " + authException);
 
         String json = ServletUtil.getJson("error", "Not authorized");
         ServletUtil.write(response, HttpStatus.FORBIDDEN, json);

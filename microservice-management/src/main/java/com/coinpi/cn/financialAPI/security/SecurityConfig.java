@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.and().authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/management/api/user/subtractCall/*", "/management").permitAll()
 			.antMatchers(HttpMethod.POST).permitAll()
-			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
+			.antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**","/actuator/**").permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
 			.addFilter(new CorsConfig())
