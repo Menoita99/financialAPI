@@ -23,6 +23,7 @@ public class StockService {
 	public StockPredictionModel getPredictionByStock(String stock) {
 
 		ResponseEntity<?> response = managementService.subtractCall(JwtUtil.getUser().getId());
+		System.out.println("subtracted");
 		if (response.getStatusCode() == HttpStatus.OK)
 			if ((boolean) response.getBody()) {
 				// TODO: comunicar com o data science
@@ -50,6 +51,7 @@ public class StockService {
 
 	public List<StockPredictionModel> getTopPredictions() {
 		ResponseEntity<?> response = managementService.subtractCall(JwtUtil.getUser().getId());
+		System.out.println("Subtracted");
 		if (response.getStatusCode() == HttpStatus.OK)
 			if ((boolean) response.getBody()) {
 				List<StockPredictionModel> predictions = new ArrayList<StockPredictionModel>();
@@ -75,6 +77,7 @@ public class StockService {
 
 	public List<StockPredictionModel> getPredictionsFromNews() {
 		ResponseEntity<?> response = managementService.subtractCall(JwtUtil.getUser().getId());
+		System.out.println("Subtracted");
 		if (response.getStatusCode() == HttpStatus.OK)
 			if ((boolean) response.getBody()) {
 				List<StockPredictionModel> predictions = new ArrayList<StockPredictionModel>();

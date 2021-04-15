@@ -46,7 +46,7 @@ public class UserController {
 		try{
 			return ResponseEntity.ok(service.getUserRemainingCalls(user.getId()));
 		}catch (Exception e) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -63,34 +63,28 @@ public class UserController {
 				users.add(new UserInfoModel(u));
 		 	return ResponseEntity.ok(users);
 		}catch (Exception e) {
-			return new ResponseEntity<List<UserInfoModel>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	/**
-	 * doesnt return anything, aka ok
-	 * recieves a user 
-	 * shouldnt update him here 
-	 * sends the user up so we can update him in the specific place
-	 * TODO - Check for implementation
-	 */
+	
 	@Secured({ "ROLE_ADMIN" })
 	@PutMapping("/{id}")
 	public ResponseEntity<?> putClientById(@PathVariable long id, @RequestBody UserInfoModel info) {
 		try{
 		 	return ResponseEntity.ok(new UserInfoModel(service.update(id,info)));
 		}catch (Exception e) {
-			return new ResponseEntity<List<UserInfoModel>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
-	
+	@Secured({ "ROLE_ADMIN" })
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getClientById(@PathVariable long id) {
 		try{
 		 	return ResponseEntity.ok(new UserInfoModel(service.findById(id)));
 		}catch (Exception e) {
-			return new ResponseEntity<List<UserInfoModel>>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
