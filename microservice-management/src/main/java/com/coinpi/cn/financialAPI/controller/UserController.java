@@ -21,8 +21,11 @@ import com.coinpi.cn.financialAPI.model.UserInfoModel;
 import com.coinpi.cn.financialAPI.security.jwt.JwtUtil;
 import com.coinpi.cn.financialAPI.service.UserService;
 
+import lombok.AllArgsConstructor;
+
 @RestController
 @RequestMapping("management/api/user")
+@AllArgsConstructor
 public class UserController {
 	
 	@Autowired
@@ -31,10 +34,14 @@ public class UserController {
 	
 	@PostMapping("/buy")
 	@Secured({ "ROLE_ADMIN", "ROLE_CLIENT"})
-	public ResponseEntity<?> confirmToken( @RequestBody CreditCardModel rtt) {
+	public ResponseEntity<?> buyCalls( @RequestBody CreditCardModel rtt) {
+		try {
 		User user = JwtUtil.getUser();
 		user = service.addCalls(user.getId(), rtt.getAmount()/0.01);
 		return ResponseEntity.ok(user.getCalls());
+		}catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	
