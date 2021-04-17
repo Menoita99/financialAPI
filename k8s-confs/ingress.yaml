@@ -3,23 +3,20 @@ kind: Ingress
 metadata:
   name: gateway-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.global-static-ip-name: "web-static-ip"
 spec:
-  backend:
-    serviceName: default-http-backend
-    servicePort: 8000
   rules:
-    http:
+  - http:
       paths:
-      - path: /management
+      - path: /management/*
         backend:
           serviceName: management-service
           servicePort: 8080
-      - path: /service
+      - path: /service/*
         backend:
           serviceName: service-service
           servicePort: 8081
-      - path: /security
+      - path: /*
         backend:
           serviceName: security-service
           servicePort: 8082
