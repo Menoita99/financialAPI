@@ -8,11 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/management")
+@RequestMapping("/")
 public class Controller {
 
 	@GetMapping
 	public ResponseEntity<String> healthyCheck() {
+		return ResponseEntity.ok("Healthy! "+LocalDateTime.now());
+	}
+	
+	@GetMapping("/management")
+	public ResponseEntity<String> healthyCheckAll() {
 		return ResponseEntity.ok("Healthy! "+LocalDateTime.now());
 	}
 }
