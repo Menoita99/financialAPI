@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "security-service", url="http://35.244.221.157")
 public interface ServiceSecurity {
-	
+
 	@GetMapping("/security/validateToken")
 	ResponseEntity<String> tokenValidation(@RequestParam String token);
 }
-

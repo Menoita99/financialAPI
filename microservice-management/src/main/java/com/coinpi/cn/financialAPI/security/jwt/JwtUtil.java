@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.coinpi.cn.financialAPI.database.entity.AcessRole;
 import com.coinpi.cn.financialAPI.database.entity.User;
 
 import java.util.Date;
@@ -109,7 +110,22 @@ public class JwtUtil {
     }
 
     
-    
+    public static String createTokenTest(String userName, List<AcessRole> accessRoles) {
+        List<String> roles = accessRoles.stream().map(AcessRole::toGrantedAuthority).map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+
+        byte[] signingKey = JWT_SECRET.getBytes();
+
+        int days = EXPIRATION_TIME;
+        long time = days * 24 /*hours*/ * 60 /*min*/ * 60 /*sec*/ * 1000  /*milis*/;
+        Date expiration = new Date(System.currentTimeMillis() + time);
+
+        return Jwts.builder()
+                .signWith(Keys.hmacShaKeyFor(signingKey), SignatureAlgorithm.HS512)
+                .setSubject(userName)
+                .setExpiration(expiration)
+                .claim("rol", roles)
+                .compact();
+    }
     
     
     
