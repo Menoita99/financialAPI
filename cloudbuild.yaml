@@ -1,0 +1,7 @@
+steps:
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['microservice-management', 'mvnw', 'package']
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['microservice-security', 'mvnw', 'package']
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['microservice-service', 'mvnw', 'package']
