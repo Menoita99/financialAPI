@@ -26,6 +26,11 @@ public class StockService {
 		System.out.println("subtracted");
 		if (response.getStatusCode() == HttpStatus.OK)
 			if ((boolean) response.getBody()) {
+				
+				
+				
+				
+				
 				// TODO: comunicar com o data science
 				// temporário, devolver este random
 				StockPredictionModel model = getStock(stock);
