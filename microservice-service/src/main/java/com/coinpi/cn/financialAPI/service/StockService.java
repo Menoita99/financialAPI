@@ -1,5 +1,12 @@
 package com.coinpi.cn.financialAPI.service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.http.HttpClient;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +21,25 @@ import com.coinpi.cn.financialAPI.model.Action;
 import com.coinpi.cn.financialAPI.model.StockPredictionModel;
 import com.coinpi.cn.financialAPI.security.jwt.JwtUtil;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 @Service
 public class StockService {
 
+	public static void main(String[] args) {
+		StockService service = new StockService();
+		service.sendHttpPostRequest("APPLE", 0, "POST");
+	}
+
 	@Autowired
 	private ManagementServiceClient managementService;
+
+	private String pythonService = "api/python";
+	private String[] pythonEndpoints = { "/stock", "/top", "/news" };
 
 	public StockPredictionModel getPredictionByStock(String stock) {
 
@@ -26,11 +47,7 @@ public class StockService {
 		System.out.println("subtracted");
 		if (response.getStatusCode() == HttpStatus.OK)
 			if ((boolean) response.getBody()) {
-				
-				
-				
-				
-				
+				sendHttpPostRequest(stock, 0, "POST");
 				// TODO: comunicar com o data science
 				// temporário, devolver este random
 				StockPredictionModel model = getStock(stock);
@@ -38,6 +55,24 @@ public class StockService {
 			}
 
 		throw new IllegalStateException("not enough calls");
+	}
+
+	private String sendHttpPostRequest(String message, int endpoint, String requestType) {
+		String json = "{\"data\": " + "\"" + message + "\"}";
+
+		OkHttpClient client = new OkHttpClient().newBuilder().build();
+		MediaType mediaType = MediaType.parse("application/json");
+		RequestBody body = RequestBody.create(mediaType, json);
+		Request request = new Request.Builder().url("http://127.0.0.1:5000/" + pythonService + pythonEndpoints[endpoint]).method(requestType, body)
+				.addHeader("Content-Type", "application/json").build();
+		try {
+			Response response = client.newCall(request).execute();
+			return response.body().string();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "Internal error";
+		}
+
 	}
 
 	private StockPredictionModel getStock(String stock) {
@@ -71,7 +106,7 @@ public class StockService {
 					for (int j = 0; j < 3; j++) {
 						stockName += CHARS.charAt(r.nextInt(CHARS.length()));
 					}
-					
+
 					StockPredictionModel model = getStock(stockName);
 					predictions.add(model);
 				}
@@ -97,7 +132,7 @@ public class StockService {
 					for (int j = 0; j < 3; j++) {
 						stockName += CHARS.charAt(r.nextInt(CHARS.length()));
 					}
-					
+
 					StockPredictionModel model = getStock(stockName);
 					predictions.add(model);
 				}
