@@ -49,12 +49,11 @@ public class StockController {
 	@GetMapping("/news")
 	public ResponseEntity<?> getNewImpact(@RequestParam String news) {
 		try {
-			List<StockPredictionModel> stockPredictions = service.getPredictionsFromNews();
-			System.out.println(news);
-			if(stockPredictions.isEmpty())
-				return ResponseEntity.<String>ok("This new will most likely not influenciate anything.");
+			int stockPredictions = service.getPredictionsFromNews(news);
+			if(stockPredictions == 1)
+				return ResponseEntity.<String>ok("This new will most likely make the market go up!");
 			else
-				return ResponseEntity.<List<StockPredictionModel>>ok(stockPredictions);			
+				return ResponseEntity.<String>ok("This new will most likely not make the market go up!");		
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
