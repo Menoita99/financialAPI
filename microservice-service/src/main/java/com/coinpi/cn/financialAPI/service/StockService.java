@@ -105,18 +105,22 @@ public class StockService {
 			if ((boolean) response.getBody()) {
 				List<StockPredictionModel> predictions = new ArrayList<StockPredictionModel>();
 				String predictionResponse = sendHttpRequest("", 1, "GET");
-				// TODO: Comunicar com o python para receber as predictions
-				// temporário, devolve uma lista de random strings
 				for(String x : predictionResponse.split("],")) {
 					x = x.replace("[", "").replace("]", "").replace("\"", "").replace(" ","").replace(".csv", "");
 					String [] values = x.split(",");
 					pairs.put(values[1], Double.parseDouble(values[0]));
 				}
 				pairs.forEach((k,v) -> {
-					predictions.add(new StockPredictionModel(k, 1, Action.BUY, LocalDateTime.now()));
+					double value = Math.round(v);
+					double prob = 0;
+					if(value >  v)
+						prob = value - v;
+					else if(value < v)
+						prob = v - value;
+					else
+						prob = 1;
+					predictions.add(new StockPredictionModel(k, prob, Action.BUY, LocalDateTime.now()));
 				});
-				for(StockPredictionModel s : predictions)
-					System.out.println(s);
 				return predictions;
 			}
 		throw new IllegalStateException("Not enough calls");
