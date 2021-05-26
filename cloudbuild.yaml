@@ -1,7 +1,7 @@
 steps:
-- name: 'gcr.io/cloud-builders/mvn'
+- name: maven:3.6.0-jdk-11-slim
   args: ['microservice-management', 'mvnw', 'package']
-- name: 'gcr.io/cloud-builders/mvn'
+- name: maven:3.6.0-jdk-11-slim
   args: ['microservice-security', 'mvnw', 'package']
-- name: 'gcr.io/cloud-builders/mvn'
+- name: maven:3.6.0-jdk-11-slim
   args: ['microservice-service', 'mvnw', 'package']
