@@ -1,10 +1,13 @@
 steps:
 - name: maven:3.6.0-jdk-11-slim
+  entrypoint: mvnw
   args: ['mvnw', 'package']
   dir: 'microservice-managament'
 - name: maven:3.6.0-jdk-11-slim
+  entrypoint: mvnw
   args: ['mvnw', 'package']
   dir: 'microservice-security'
 - name: maven:3.6.0-jdk-11-slim
+  entrypoint: mvnw
   args: ['mvnw', 'package']
   dir: 'microservice-service'
