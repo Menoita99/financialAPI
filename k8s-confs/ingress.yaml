@@ -3,9 +3,11 @@ kind: Ingress
 metadata:
   name: gateway-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "web-static-ip"
+    ingress.gcp.kubernetes.io/pre-shared-cert: "cretificatecoinpi"
+    #kubernetes.io/ingress.global-static-ip-name: "web-static-ip"
 spec:
   rules:
+  - host: coinpi.ddns.net
   - http:
       paths:
       - path: /management/*

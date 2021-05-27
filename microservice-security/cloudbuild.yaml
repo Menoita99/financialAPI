@@ -1,0 +1,5 @@
+steps:
+- name: openjdk:17-jdk
+  dir: microservice-security
+  entrypoint: bash
+  args: ['-c', 'chmod +x mvnw && ./mvnw package']
