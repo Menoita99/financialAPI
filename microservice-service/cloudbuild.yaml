@@ -1,0 +1,3 @@
+steps:
+- name: 'mvnw'
+  args: ['package']
