@@ -1,4 +1,5 @@
 steps:
 - name: openjdk:17-jdk
+  dir: microservice-security
   entrypoint: bash
   args: ['-c', './mvnw package']
