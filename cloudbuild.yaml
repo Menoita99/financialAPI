@@ -1,7 +1,7 @@
 steps:
 - name: maven:3.6.0-jdk-11-slim
-  args: ['/workspace/.git/master/microservice-management/mvnw', 'package']
+  args: ['/master/microservice-management/mvnw', 'package']
 - name: maven:3.6.0-jdk-11-slim
-  args: ['/workspace/.git/master/microservice-security/mvnw', 'package']
+  args: ['/master/microservice-security/mvnw', 'package']
 - name: maven:3.6.0-jdk-11-slim
-  args: ['/workspace/.git/master/microservice-service/mvnw', 'package']
+  args: ['/master/microservice-service/mvnw', 'package']
