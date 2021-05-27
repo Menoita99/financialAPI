@@ -1,7 +1,0 @@
-steps:
-- name: 'github.com/Menoita99/financialAPI/tree/main/microservice-management/mvnw'
-  args: ['package']
-- name: 'github.com/Menoita99/financialAPI/tree/main/microservice-security/mvnw'
-  args: ['package']
-- name: 'github.com/Menoita99/financialAPI/tree/main/microservice-service/mvnw'
-  args: ['package']
