@@ -1,4 +1,3 @@
 steps:
 - name: 'openjdk:10-jdk'
-  entrypoint: 'bash'
-  args: ['-c', './mvnw package']
+  args: ['./mvnw package']
