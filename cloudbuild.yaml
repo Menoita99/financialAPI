@@ -1,7 +1,7 @@
 steps:
-- name: maven:3.6.0-jdk-11-slim
-  args: ['/master/microservice-management/mvnw', 'package']
-- name: maven:3.6.0-jdk-11-slim
-  args: ['/master/microservice-security/mvnw', 'package']
-- name: maven:3.6.0-jdk-11-slim
-  args: ['/master/microservice-service/mvnw', 'package']
+- name: 'https://github.com/Menoita99/financialAPI/tree/main/microservice-management/mvnw'
+  args: ['package']
+- name: 'https://github.com/Menoita99/financialAPI/tree/main/microservice-security/mvnw'
+  args: ['package']
+- name: 'https://github.com/Menoita99/financialAPI/tree/main/microservice-service/mvnw'
+  args: ['package']
