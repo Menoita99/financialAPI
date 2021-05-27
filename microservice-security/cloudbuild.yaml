@@ -1,4 +1,4 @@
 steps:
-- name: adoptopenjdk/openjdk:17-ea-10-jdk-alpine3.13
+- name: openjdk:17-jdk
   entrypoint: bash
   args: ['-c', './mvnw package']
